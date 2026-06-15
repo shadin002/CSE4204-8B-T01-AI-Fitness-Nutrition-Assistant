@@ -1,4 +1,4 @@
-# AI Fitness & Nutrition Assistant 
+# AI Based Fitness & Nutrition Assistant 
 
 ## Team Information
 
