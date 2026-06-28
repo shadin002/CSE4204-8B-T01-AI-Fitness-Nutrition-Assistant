@@ -3,7 +3,7 @@ const calculateBMI = (weightKg, heightCm) => {
     return { bmi: 0, category: 'unknown' };
   }
 
-  const heightM = heightCm / 100;
+  const  heightM = heightCm / 100;
   const rawBmi = weightKg / (heightM * heightM);
   const bmi = Math.round(rawBmi * 10) / 10; 
 
