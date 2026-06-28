@@ -1,0 +1,21 @@
+{
+  "name": "cse4204-8b-t01-ai-fitness-nutrition-assistant",
+  "version": "1.0.0",
+  "description": "| ID | Name | Role\r | :--- | :--- |:---\r | 11220320904 | Musa Islam Shadin |Team Leader\r | 11220320871 | Arpita Sarker |Ai Integration Lead\r | 11220320875 | Easrin Mahjabin Suhani |Backend Developer\r | 11220320887 | Sabequn Nahar |Frontend Developer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shadin002/CSE4204-8B-T01-AI-Fitness-Nutrition-Assistant.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/shadin002/CSE4204-8B-T01-AI-Fitness-Nutrition-Assistant/issues"
+  },
+  "homepage": "https://github.com/shadin002/CSE4204-8B-T01-AI-Fitness-Nutrition-Assistant#readme"
+}
