@@ -7,6 +7,7 @@ const validate = (req, res, next) => {
     const firstError = result.array()[0];
     return error(res, 400, firstError.msg);
   }
+  
   next();
 };
 
