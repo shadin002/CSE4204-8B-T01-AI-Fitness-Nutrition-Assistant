@@ -1,0 +1,106 @@
+[
+  {
+    "name": "Jumping Jacks",
+    "categoryName": "Cardio",
+    "description": "A full-body warm-up exercise. Stand upright, then jump while spreading your legs and raising your arms overhead, and return to start. Repeat at a steady pace.",
+    "targetBodyPart": "Full Body",
+    "difficulty": "beginner",
+    "videoUrl": ""
+  },
+  {
+    "name": "High Knees",
+    "categoryName": "Cardio",
+    "description": "Run in place while driving your knees up toward your chest as high as possible. Keeps the heart rate elevated.",
+    "targetBodyPart": "Legs, Core",
+    "difficulty": "beginner",
+    "videoUrl": ""
+  },
+  {
+    "name": "Burpees",
+    "categoryName": "Cardio",
+    "description": "A full-body conditioning move combining a squat, plank, push-up, and jump. Demanding but highly effective.",
+    "targetBodyPart": "Full Body",
+    "difficulty": "advanced",
+    "videoUrl": ""
+  },
+  {
+    "name": "Push Ups",
+    "categoryName": "Bodyweight",
+    "description": "Lower your body toward the floor by bending your elbows while keeping a straight line from head to heels, then push back up.",
+    "targetBodyPart": "Chest, Triceps, Shoulders",
+    "difficulty": "beginner",
+    "videoUrl": ""
+  },
+  {
+    "name": "Plank",
+    "categoryName": "Bodyweight",
+    "description": "Hold a straight-body position resting on your forearms and toes, keeping the core tight. Builds core stability.",
+    "targetBodyPart": "Core",
+    "difficulty": "beginner",
+    "videoUrl": ""
+  },
+  {
+    "name": "Mountain Climbers",
+    "categoryName": "Bodyweight",
+    "description": "From a plank position, alternately drive each knee toward your chest in a running motion while keeping the core engaged.",
+    "targetBodyPart": "Core, Legs",
+    "difficulty": "intermediate",
+    "videoUrl": ""
+  },
+  {
+    "name": "Squats",
+    "categoryName": "Strength",
+    "description": "Stand with feet shoulder-width apart, lower your hips back and down as if sitting in a chair, then return to standing.",
+    "targetBodyPart": "Legs, Glutes",
+    "difficulty": "beginner",
+    "videoUrl": ""
+  },
+  {
+    "name": "Lunges",
+    "categoryName": "Strength",
+    "description": "Step forward and lower your hips until both knees are bent at about 90 degrees, then push back to standing. Alternate legs.",
+    "targetBodyPart": "Legs, Glutes",
+    "difficulty": "intermediate",
+    "videoUrl": ""
+  },
+  {
+    "name": "Glute Bridge",
+    "categoryName": "Strength",
+    "description": "Lie on your back with knees bent, then lift your hips toward the ceiling by squeezing your glutes, and lower slowly.",
+    "targetBodyPart": "Glutes, Lower Back",
+    "difficulty": "beginner",
+    "videoUrl": ""
+  },
+  {
+    "name": "Hamstring Stretch",
+    "categoryName": "Stretching",
+    "description": "Sit or stand and reach toward your toes with a straight back to lengthen the muscles at the back of the thigh. Hold gently.",
+    "targetBodyPart": "Hamstrings",
+    "difficulty": "beginner",
+    "videoUrl": ""
+  },
+  {
+    "name": "Cat-Cow Stretch",
+    "categoryName": "Stretching",
+    "description": "On hands and knees, alternate between arching your back upward and dropping it down while moving the head. Improves spine mobility.",
+    "targetBodyPart": "Spine, Core",
+    "difficulty": "beginner",
+    "videoUrl": ""
+  },
+  {
+    "name": "Wall Sit",
+    "categoryName": "Beginner Workout",
+    "description": "Lean your back against a wall and slide down until your thighs are parallel to the floor, holding the position. Builds leg endurance.",
+    "targetBodyPart": "Legs",
+    "difficulty": "beginner",
+    "videoUrl": ""
+  },
+  {
+    "name": "Marching in Place",
+    "categoryName": "Beginner Workout",
+    "description": "Lift one knee at a time while standing, swinging the arms naturally. A gentle, low-impact starting exercise.",
+    "targetBodyPart": "Legs, Core",
+    "difficulty": "beginner",
+    "videoUrl": ""
+  }
+]
