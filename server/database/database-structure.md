@@ -1,6 +1,6 @@
 # Database Structure
 
-**Project:** FitMate AI
+**Project:** AI-Based Fitness & Nutrition Assistant
 **Database:** MongoDB Atlas
 **ODM:** Mongoose
 
