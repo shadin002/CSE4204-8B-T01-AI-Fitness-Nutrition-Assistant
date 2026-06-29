@@ -1,6 +1,6 @@
 # Database Structure
 
-**Project:** AI-Based Fitness & Nutrition Assistant
+**Project:** FitMate AI
 **Database:** MongoDB Atlas
 **ODM:** Mongoose
 
@@ -10,7 +10,6 @@ relationships, based on the ER diagram from the System Design phase.
 > Note: The AI recommendation feature is planned for a later phase. The
 > `recommendations` collection will be added when that module is implemented.
 
----
 
 ## Overview of Collections
 
@@ -22,7 +21,6 @@ relationships, based on the ER diagram from the System Design phase.
 | `categories` | Stores exercise categories (Cardio, Strength, etc.). |
 | `exercises` | Stores exercises, each belonging to a category. |
 
----
 
 ## 1. users
 
@@ -38,7 +36,6 @@ Stores registered accounts. Passwords are hashed with bcrypt before saving.
 | `createdAt` | Date | Auto-managed timestamp. |
 | `updatedAt` | Date | Auto-managed timestamp. |
 
----
 
 ## 2. profiles
 
@@ -61,7 +58,6 @@ whenever the profile is created or updated.
 | `createdAt` | Date | Auto-managed timestamp. |
 | `updatedAt` | Date | Auto-managed timestamp. |
 
----
 
 ## 3. progress
 
@@ -77,7 +73,6 @@ Stores weight records over time so users can track changes.
 | `createdAt` | Date | Auto-managed timestamp. |
 | `updatedAt` | Date | Auto-managed timestamp. |
 
----
 
 ## 4. categories
 
@@ -91,7 +86,6 @@ Exercise categories shown in the exercise library. Managed by admins.
 | `createdAt` | Date | Auto-managed timestamp. |
 | `updatedAt` | Date | Auto-managed timestamp. |
 
----
 
 ## 5. exercises
 
@@ -109,7 +103,6 @@ Individual exercises, each linked to a category. Managed by admins.
 | `createdAt` | Date | Auto-managed timestamp. |
 | `updatedAt` | Date | Auto-managed timestamp. |
 
----
 
 ## Relationships
 
@@ -123,7 +116,6 @@ categories (1) ── (*) exercises     one category has many exercises
 - A **user** has **many progress** records (`progress.userId`).
 - A **category** has **many exercises** (`exercises.categoryId`).
 
----
 
 ## Sample Data
 
