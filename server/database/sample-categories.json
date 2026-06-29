@@ -1,0 +1,22 @@
+[
+  {
+    "categoryName": "Cardio",
+    "description": "Heart-rate raising exercises that improve stamina and burn calories, such as running, jumping, and cycling."
+  },
+  {
+    "categoryName": "Strength",
+    "description": "Resistance-based exercises that build muscle and increase overall body strength."
+  },
+  {
+    "categoryName": "Stretching",
+    "description": "Flexibility and mobility exercises that improve range of motion and help prevent injury."
+  },
+  {
+    "categoryName": "Bodyweight",
+    "description": "Exercises that use the body's own weight as resistance, requiring no equipment."
+  },
+  {
+    "categoryName": "Beginner Workout",
+    "description": "Simple, low-intensity routines designed for people who are just starting their fitness journey."
+  }
+]
