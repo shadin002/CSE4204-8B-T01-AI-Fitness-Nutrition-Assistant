@@ -1,3 +1,11 @@
+//**************** */
+
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
+//******************* */
+
+
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -14,6 +22,7 @@ const profileRoutes = require('./routes/profileRoutes');
 const progressRoutes = require('./routes/progressRoutes');
 const exerciseRoutes = require('./routes/exerciseRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const recommendationRoutes = require('./routes/recommendationRoutes');
 
 connectDB();
 
@@ -60,6 +69,7 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/exercises', exerciseRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/recommendations', recommendationRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
@@ -75,3 +85,5 @@ process.on('unhandledRejection', (err) => {
 });
 
 module.exports = app;
+
+
