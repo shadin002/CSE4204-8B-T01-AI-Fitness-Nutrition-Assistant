@@ -345,3 +345,324 @@ button { cursor: pointer; }
   }
 }
 
+/* edited by shadin
+   Final responsive reliability patch for Week 7
+   Works with the current frontend class names after Admin Edit/Update update
+*/
+
+@media (max-width: 900px) {
+  .app-shell {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sidebar {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--line);
+    padding: 20px 18px !important;
+  }
+
+  .side-nav {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 18px !important;
+  }
+
+  .side-nav a,
+  .logout-btn {
+    min-height: 46px;
+    margin: 0 !important;
+    padding: 11px 13px !important;
+    font-size: 14px !important;
+  }
+
+  .tip-card {
+    display: none !important;
+  }
+
+  .app-main {
+    width: 100% !important;
+    padding: 26px 18px !important;
+  }
+
+  .dashboard-grid,
+  .profile-layout,
+  .workout-layout,
+  .progress-grid,
+  .admin-grid,
+  .two-column {
+    grid-template-columns: 1fr !important;
+  }
+
+  .stats-grid,
+  .quick-grid,
+  .meal-grid,
+  .exercise-grid,
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .admin-inline-form.compact,
+  .admin-inline-form.exercise,
+  .form-grid.three {
+    grid-template-columns: 1fr !important;
+  }
+
+  .card,
+  .auth-card,
+  .bmi-card,
+  .exercise-card,
+  .recommendation-panel,
+  .nutrition-panel {
+    min-width: 0;
+  }
+
+  .clean-table {
+    min-width: 520px;
+  }
+
+  .admin-panel,
+  .table-wrapper,
+  .card:has(.clean-table) {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .hero,
+  .auth-page {
+    padding: 28px 18px !important;
+  }
+
+  .auth-page {
+    gap: 24px !important;
+  }
+
+  .auth-left,
+  .auth-benefits {
+    gap: 22px !important;
+  }
+
+  .auth-left h1,
+  .hero h1 {
+    font-size: 32px !important;
+    line-height: 1.08 !important;
+    letter-spacing: -1px;
+  }
+
+  .auth-card {
+    width: 100% !important;
+    padding: 24px 20px !important;
+    border-radius: 22px !important;
+  }
+
+  .app-main {
+    padding: 24px 16px !important;
+  }
+
+  .page-heading h1,
+  .library-head h1,
+  h1 {
+    font-size: 30px !important;
+    line-height: 1.12 !important;
+  }
+
+  .stats-grid,
+  .quick-grid,
+  .meal-grid,
+  .exercise-grid,
+  .feature-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .side-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .side-nav a,
+  .logout-btn {
+    font-size: 13px !important;
+    padding: 10px 11px !important;
+  }
+
+  .btn,
+  .align-end .btn,
+  .admin-inline-form .btn {
+    width: 100%;
+  }
+
+  .choice-row button,
+  .filter-row button {
+    width: auto;
+  }
+
+  .action-line,
+  .row-heading,
+  .admin-panel-head {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .bmi-card {
+    max-width: none !important;
+  }
+
+  .clean-table th,
+  .clean-table td {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .side-nav {
+    grid-template-columns: 1fr !important;
+  }
+
+  .auth-left h1,
+  .hero h1,
+  .page-heading h1,
+  .library-head h1,
+  h1 {
+    font-size: 27px !important;
+  }
+
+  .auth-card {
+    padding: 22px 17px !important;
+  }
+}
+
+/* edited by shadin
+   Progress page final safety styles
+   The chart itself uses inline styles, so these only improve table/mobile behavior.
+*/
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.chart-panel {
+  min-width: 0;
+}
+
+/* edited by shadin
+   Progress AI feedback layout fix
+   Makes AI progress feedback readable and removes unnecessary blank column space
+*/
+
+.progress-grid {
+  grid-template-columns: 250px minmax(0, 1fr);
+  align-items: start;
+}
+
+.feedback-panel {
+  grid-column: 1 / -1;
+  align-self: start;
+  display: block;
+}
+
+.feedback-panel h2 {
+  margin-bottom: 18px;
+}
+
+.feedback-panel .empty-state {
+  max-width: 520px;
+}
+
+.feedback-panel .recommendation-card {
+  font-size: 14px;
+  line-height: 1.65;
+  padding: 18px;
+  min-height: auto;
+}
+
+.feedback-panel .recommendation-head {
+  margin-bottom: 10px;
+}
+
+.feedback-panel > .recommendation-card,
+.feedback-panel > div.recommendation-card {
+  margin-bottom: 14px;
+}
+
+.progress-grid + .panel {
+  margin-top: 22px;
+}
+
+.progress-form,
+.chart-panel,
+.feedback-panel {
+  height: auto;
+}
+
+.chart-panel {
+  align-self: start;
+}
+
+@media (min-width: 1000px) {
+  .feedback-panel {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .feedback-panel h2 {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  .feedback-panel .empty-state {
+    grid-column: 1 / -1;
+  }
+
+  .feedback-panel .recommendation-card {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 999px) {
+  .progress-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feedback-panel {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .chart-panel {
+    overflow-x: hidden;
+  }
+
+  .progress-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .feedback-panel .recommendation-card {
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 16px;
+  }
+
+  .summary-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
