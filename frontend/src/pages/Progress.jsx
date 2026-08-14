@@ -201,6 +201,7 @@ export default function Progress() {
               onChange={(e) => setForm({ ...form, date: e.target.value })}
               required
             />
+            <small>Selected date: {formatDate(form.date)}. Use the calendar icon to avoid date-format confusion.</small>
           </label>
 
           <label className="field">
@@ -348,7 +349,7 @@ export default function Progress() {
             </>
           ) : (
             <p className="empty-state">
-              AI feedback will appear here after Week 8 integration.
+              AI feedback will appear here after you request a progress analysis.
             </p>
           )}
         </aside>

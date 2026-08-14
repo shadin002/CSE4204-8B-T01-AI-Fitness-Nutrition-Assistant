@@ -18,7 +18,7 @@ export default function NutritionRecommendation() {
         const items = res.data?.data?.recommendations || [];
         if (items[0]) setRecommendation(items[0]);
       } catch {
-        // AI module may not be merged before Week 8.
+        // Ignore history loading errors and allow the page to continue.
       }
     }
     loadHistory();
@@ -64,9 +64,16 @@ export default function NutritionRecommendation() {
             <div className="meal-grid">
               {plan.dietPlan?.map((meal, index) => (
                 <article key={index} className="meal-card">
-                  <Circle size={15} />
+                  <div className="meal-card-head">
+                    <span className="meal-number">{String(index + 1).padStart(2, '0')}</span>
+                    <Circle size={15} />
+                  </div>
                   <strong>{meal.meal}</strong>
-                  <p>{meal.suggestions?.join(' + ')}</p>
+                  <ul className="meal-suggestion-list">
+                    {(meal.suggestions || []).map((suggestion, suggestionIndex) => (
+                      <li key={suggestionIndex}>{suggestion}</li>
+                    ))}
+                  </ul>
                 </article>
               ))}
             </div>
@@ -89,7 +96,7 @@ export default function NutritionRecommendation() {
             </div>
           </>
         ) : (
-          <p className="empty-state">No nutrition recommendation yet. Generate one after the Week 8 AI backend is connected.</p>
+          <p className="empty-state">No nutrition recommendation yet. Click Generate Diet Plan to create one.</p>
         )}
       </section>
     </AppLayout>

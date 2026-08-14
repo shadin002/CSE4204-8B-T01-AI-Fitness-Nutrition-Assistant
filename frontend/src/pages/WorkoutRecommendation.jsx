@@ -23,7 +23,7 @@ export default function WorkoutRecommendation() {
       setHistory(items);
       if (items[0]) setRecommendation(items[0]);
     } catch {
-      // AI module may not be merged before Week 8.
+      // Ignore history loading errors and allow the page to continue.
     }
   };
 
@@ -65,13 +65,13 @@ export default function WorkoutRecommendation() {
       <section className="panel recommendation-panel">
         <div className="panel-head">
           <h2>Recommended Plan <span className="badge">Beginner</span></h2>
-          <span>{plan?.weeklyFrequency || 'AI Plan'}</span>
+          <span className="plan-frequency">{plan?.weeklyFrequency ? `${plan.weeklyFrequency} • 7-day schedule` : 'AI Plan'}</span>
         </div>
 
         {plan ? (
           <div className="workout-layout">
             <div>
-              <h3>Weekly Workout Split</h3>
+              <h3>Weekly Workout Plan</h3>
               <ul className="split-list">
                 {plan.workoutPlan?.map((day, index) => (
                   <li key={index}><strong>{day.day}</strong><span>{day.focus}</span></li>
@@ -80,15 +80,17 @@ export default function WorkoutRecommendation() {
             </div>
 
             <div>
-              <h3>Today&apos;s Workout</h3>
-              <table className="clean-table">
-                <thead><tr><th>Exercise</th><th>Sets</th><th>Reps / Time</th><th>Rest</th></tr></thead>
-                <tbody>
-                  {(plan.workoutPlan?.[0]?.exercises || []).map((item, index) => (
-                    <tr key={index}><td>{item}</td><td>3</td><td>8-12 reps</td><td>60 sec</td></tr>
-                  ))}
-                </tbody>
-              </table>
+              <h3>Day 1 Workout</h3>
+              <div className="workout-table-wrap">
+                <table className="clean-table workout-table">
+                  <thead><tr><th>Exercise</th><th>Sets</th><th>Reps / Time</th><th>Rest</th></tr></thead>
+                  <tbody>
+                    {(plan.workoutPlan?.[0]?.exercises || []).map((item, index) => (
+                      <tr key={index}><td>{item}</td><td>3</td><td>8-12 reps</td><td>60 sec</td></tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             <div className="side-notes">
@@ -98,7 +100,7 @@ export default function WorkoutRecommendation() {
             </div>
           </div>
         ) : (
-          <p className="empty-state">No workout recommendation yet. Generate one after the Week 8 AI backend is connected.</p>
+          <p className="empty-state">No workout recommendation yet. Click Generate Workout Plan to create one.</p>
         )}
       </section>
     </AppLayout>
