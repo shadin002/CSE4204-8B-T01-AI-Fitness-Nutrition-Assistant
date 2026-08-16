@@ -337,5 +337,5 @@ http://localhost:5000
 
 | Resource | Link |
 | :--- | :--- |
-| GitHub Repository | Add repository link |
+| GitHub Repository | https://github.com/shadin002/CSE4204-8B-T01-AI-Fitness-Nutrition-Assistant |
 | Live Demo | Coming Soon |
