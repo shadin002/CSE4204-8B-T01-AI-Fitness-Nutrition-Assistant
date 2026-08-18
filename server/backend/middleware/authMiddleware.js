@@ -4,21 +4,22 @@ const { error } = require('../utils/apiResponse');
 
 const protect = async (req, res, next) => {
   try {
-    let token;
     const authHeader = req.headers.authorization;
-
-    if (authHeader && authHeader.startsWith('Bearer ')) {
-      token = authHeader.split(' ')[1];
-    }
+    const token = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
 
     if (!token) {
       return error(res, 401, 'Not authorized, no token provided');
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id).select('-password');
+    const user = await User.findById(decoded.id).select('+tokenVersion');
+
     if (!user) {
       return error(res, 401, 'Not authorized, user no longer exists');
+    }
+
+    if (Number(decoded.version || 0) !== Number(user.tokenVersion || 0)) {
+      return error(res, 401, 'Session is no longer valid. Please log in again.');
     }
 
     req.user = user;
