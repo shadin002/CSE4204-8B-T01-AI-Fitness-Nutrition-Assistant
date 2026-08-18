@@ -9,7 +9,7 @@ const progressSchema = new mongoose.Schema(
       index: true,
     },
     weight: {
-      type: Number, 
+      type: Number,
       required: [true, 'Weight is required'],
       min: [10, 'Weight must be at least 10 kg'],
       max: [500, 'Weight seems invalid'],
@@ -22,7 +22,7 @@ const progressSchema = new mongoose.Schema(
     },
     date: {
       type: Date,
-      default: Date.now,
+      required: true,
     },
   },
   { timestamps: true }
