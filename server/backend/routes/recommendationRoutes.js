@@ -10,18 +10,19 @@ const {
 } = require('../controllers/recommendationController');
 const { protect } = require('../middleware/authMiddleware');
 
+router.use(protect);
+
 const aiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, 
-  max: 20, 
+  windowMs: 15 * 60 * 1000,
+  max: 10,
   standardHeaders: true,
   legacyHeaders: false,
+  keyGenerator: (req) => String(req.user._id),
   message: {
     success: false,
-    message: 'Too many AI requests. Please try again later.',
+    message: 'You have reached the AI request limit. Please try again later.',
   },
 });
-
-router.use(protect);
 
 router.post('/workout', aiLimiter, generateWorkout);
 router.post('/nutrition', aiLimiter, generateNutrition);
