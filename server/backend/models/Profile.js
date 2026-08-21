@@ -6,12 +6,12 @@ const profileSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
-      unique: true, 
+      unique: true,
     },
     age: {
       type: Number,
       required: [true, 'Age is required'],
-      min: [10, 'Age must be at least 10'],
+      min: [18, 'FitGuide AI is currently available for adults aged 18 and above'],
       max: [120, 'Age seems invalid'],
     },
     gender: {
@@ -20,10 +20,15 @@ const profileSchema = new mongoose.Schema(
       required: [true, 'Gender is required'],
     },
     height: {
-      type: Number, 
+      type: Number,
       required: [true, 'Height is required'],
       min: [50, 'Height must be at least 50 cm'],
       max: [300, 'Height seems invalid'],
+    },
+    startingWeight: {
+      type: Number,
+      min: [10, 'Starting weight must be at least 10 kg'],
+      max: [500, 'Starting weight seems invalid'],
     },
     weight: {
       type: Number,
@@ -45,6 +50,33 @@ const profileSchema = new mongoose.Schema(
       type: String,
       enum: ['low', 'medium', 'high'],
       required: [true, 'Budget preference is required'],
+    },
+    trainingExperience: {
+      type: String,
+      enum: ['beginner', 'intermediate', 'advanced'],
+      default: 'beginner',
+    },
+    equipmentAccess: {
+      type: String,
+      enum: ['bodyweight', 'home_basic', 'gym'],
+      default: 'bodyweight',
+    },
+    dietaryPreference: {
+      type: String,
+      enum: ['no_preference', 'vegetarian', 'vegan', 'halal', 'other'],
+      default: 'no_preference',
+    },
+    foodAllergies: {
+      type: String,
+      trim: true,
+      maxlength: [300, 'Food allergy information cannot exceed 300 characters'],
+      default: '',
+    },
+    movementLimitations: {
+      type: String,
+      trim: true,
+      maxlength: [300, 'Movement limitation information cannot exceed 300 characters'],
+      default: '',
     },
     bmi: {
       type: Number,

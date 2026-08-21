@@ -13,6 +13,11 @@ const recommendationSchema = new mongoose.Schema(
       enum: ['workout', 'nutrition', 'progress'],
       required: [true, 'Recommendation type is required'],
     },
+    inputHash: {
+      type: String,
+      index: true,
+      default: '',
+    },
     inputData: {
       type: mongoose.Schema.Types.Mixed,
       default: {},
@@ -25,6 +30,7 @@ const recommendationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-recommendationSchema.index({ userId: 1, createdAt: -1 });
+recommendationSchema.index({ userId: 1, type: 1, createdAt: -1 });
+recommendationSchema.index({ userId: 1, type: 1, inputHash: 1, createdAt: -1 });
 
 module.exports = mongoose.model('Recommendation', recommendationSchema);

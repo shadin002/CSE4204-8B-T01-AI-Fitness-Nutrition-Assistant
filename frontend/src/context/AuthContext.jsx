@@ -10,6 +10,21 @@ export function AuthProvider({ children }) {
     return saved ? JSON.parse(saved) : null;
   });
   const [authLoading, setAuthLoading] = useState(Boolean(token));
+  const [connectionError, setConnectionError] = useState('');
+
+  const clearLocalSession = (message = '') => {
+    localStorage.removeItem('fitguide_token');
+    localStorage.removeItem('fitguide_user');
+    setToken(null);
+    setUser(null);
+    if (message) sessionStorage.setItem('fitguide_auth_message', message);
+  };
+
+  useEffect(() => {
+    const onExpired = (event) => clearLocalSession(event.detail || 'Your session has expired. Please log in again.');
+    window.addEventListener('fitguide:session-expired', onExpired);
+    return () => window.removeEventListener('fitguide:session-expired', onExpired);
+  }, []);
 
   useEffect(() => {
     async function loadCurrentUser() {
@@ -19,14 +34,17 @@ export function AuthProvider({ children }) {
       }
 
       try {
+        setConnectionError('');
         const res = await api.get('/auth/me');
         const currentUser = res.data?.data?.user;
         if (currentUser) {
           setUser(currentUser);
           localStorage.setItem('fitguide_user', JSON.stringify(currentUser));
         }
-      } catch {
-        logout();
+      } catch (err) {
+        if (err?.response?.status !== 401) {
+          setConnectionError(err.appMessage || 'Could not verify the session because the server is unavailable.');
+        }
       } finally {
         setAuthLoading(false);
       }
@@ -42,31 +60,41 @@ export function AuthProvider({ children }) {
     localStorage.setItem('fitguide_user', JSON.stringify(payload.user));
     setToken(payload.token);
     setUser(payload.user);
+    setConnectionError('');
     return payload.user;
   };
 
-  const register = async (formData) => {
-    const res = await api.post('/auth/register', formData);
-    return res.data;
+  const register = async (formData) => api.post('/auth/register', formData);
+
+  const updateStoredUser = (nextUser) => {
+    if (!nextUser) return;
+    setUser(nextUser);
+    localStorage.setItem('fitguide_user', JSON.stringify(nextUser));
   };
 
   const logout = async () => {
     try {
-      if (localStorage.getItem('fitguide_token')) {
-        await api.post('/auth/logout');
-      }
+      if (localStorage.getItem('fitguide_token')) await api.post('/auth/logout');
     } catch {
-      // Local logout should still continue even if backend logout fails.
+      // The local session is still cleared if the server is temporarily unavailable.
     }
-    localStorage.removeItem('fitguide_token');
-    localStorage.removeItem('fitguide_user');
-    setToken(null);
-    setUser(null);
+    clearLocalSession();
   };
 
   const value = useMemo(
-    () => ({ token, user, authLoading, isAuthenticated: Boolean(token), login, register, logout }),
-    [token, user, authLoading]
+    () => ({
+      token,
+      user,
+      authLoading,
+      connectionError,
+      isAuthenticated: Boolean(token),
+      login,
+      register,
+      logout,
+      updateStoredUser,
+      clearLocalSession,
+    }),
+    [token, user, authLoading, connectionError]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
