@@ -8,18 +8,17 @@ export default function ExerciseCard({ exercise }) {
     <article className="exercise-card">
       <div className="exercise-media">
         {exercise.videoUrl ? (
-          <a href={exercise.videoUrl} target="_blank" rel="noreferrer" aria-label="Open exercise video">
+          <a href={exercise.videoUrl} target="_blank" rel="noreferrer" aria-label={`Open ${exercise.name} video`}>
             <Play size={22} />
           </a>
-        ) : (
-          <Play size={22} />
-        )}
+        ) : <Play size={22} />}
       </div>
       <div className="exercise-body">
         <h3>{exercise.name}</h3>
         <div className="chip-row">
           <span className="tiny-chip">{categoryName}</span>
           <span className="tiny-chip green">{labelText(exercise.difficulty)}</span>
+          {exercise.targetBodyPart ? <span className="tiny-chip">{exercise.targetBodyPart}</span> : null}
         </div>
         <p>{exercise.description || 'Simple exercise guidance with clear instructions.'}</p>
       </div>

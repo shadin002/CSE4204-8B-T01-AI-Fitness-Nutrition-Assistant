@@ -1,39 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Info, Zap } from 'lucide-react';
 import AppLayout from '../components/AppLayout.jsx';
 import Button from '../components/Button.jsx';
 import Alert from '../components/Alert.jsx';
 import RecommendationCard from '../components/RecommendationCard.jsx';
 import api from '../services/api.js';
+import { labelText } from '../utils/formatDate.js';
 
 export default function WorkoutRecommendation() {
   const [recommendation, setRecommendation] = useState(null);
-  const [history, setHistory] = useState([]);
+  const [selectedDay, setSelectedDay] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    loadHistory();
-  }, []);
-
-  const loadHistory = async () => {
+  const loadLatest = async () => {
     try {
-      const res = await api.get('/recommendations?type=workout');
-      const items = res.data?.data?.recommendations || [];
-      setHistory(items);
-      if (items[0]) setRecommendation(items[0]);
+      const res = await api.get('/recommendations?type=workout&latest=true');
+      setRecommendation(res.data?.data?.recommendations?.[0] || null);
+      setSelectedDay(0);
     } catch {
-      // Ignore history loading errors and allow the page to continue.
+      setRecommendation(null);
     }
   };
 
-  const generate = async () => {
+  useEffect(() => { loadLatest(); }, []);
+
+  const generate = async (force = false) => {
     setError('');
+    setMessage('');
     try {
       setLoading(true);
-      const res = await api.post('/recommendations/workout');
-      setRecommendation(res.data?.data?.recommendation);
-      await loadHistory();
+      const res = await api.post(`/recommendations/workout${force ? '?force=true' : ''}`);
+      setRecommendation({ ...res.data?.data?.recommendation, isStale: false });
+      setSelectedDay(0);
+      setMessage(res.data?.data?.cached ? 'Your current workout plan is already up to date.' : 'Workout plan generated successfully.');
     } catch (err) {
       setError(err.appMessage || 'Workout recommendation is not available yet.');
     } finally {
@@ -42,51 +43,62 @@ export default function WorkoutRecommendation() {
   };
 
   const plan = recommendation?.aiResponse;
+  const isLegacyPlan = useMemo(
+    () => Boolean(plan?.workoutPlan?.some((day) => (day.exercises || []).some((item) => typeof item === 'string'))),
+    [plan]
+  );
+  const activeDay = useMemo(() => (!isLegacyPlan ? plan?.workoutPlan?.[selectedDay] || null : null), [plan, selectedDay, isLegacyPlan]);
+  const experience = labelText(recommendation?.inputData?.trainingExperience || 'beginner');
 
   return (
     <AppLayout>
-      <div className="page-heading">
-        <h1>Workout Recommendation</h1>
-        <p>AI-assisted workout guidance based on saved profile data.</p>
-      </div>
+      <div className="page-heading"><h1>Workout Recommendation</h1><p>AI-assisted workout guidance based on your current saved profile.</p></div>
 
-      <div className="info-banner">
-        <Info size={18} />
-        We use your saved profile, goal, and activity level. The user does not write prompts.
-      </div>
-
+      <div className="info-banner"><Info size={18} /> We use your current weight, goal, activity level, training experience, equipment access, and movement limitations.</div>
       <div className="action-line">
-        <Button loading={loading} onClick={generate}><Zap size={16} /> Generate Workout Plan</Button>
-        <span>{loading ? 'AI is preparing your plan...' : 'Click to generate a fresh plan.'}</span>
+        <Button loading={loading} onClick={() => generate(false)}><Zap size={16} /> {plan ? 'Refresh Current Plan' : 'Generate Workout Plan'}</Button>
+        {plan ? <button type="button" className="secondary-action" onClick={() => generate(true)} disabled={loading}>Regenerate New Version</button> : null}
       </div>
 
+      <Alert type="success">{message}</Alert>
       <Alert type="error">{error}</Alert>
+      {isLegacyPlan ? <Alert type="info">This saved workout uses the older plan format. Refresh Current Plan to convert it to the new detailed day-by-day format.</Alert> : recommendation?.isStale ? <Alert type="info">Your fitness profile changed after this plan was generated. Refresh the plan before following it.</Alert> : null}
 
       <section className="panel recommendation-panel">
         <div className="panel-head">
-          <h2>Recommended Plan <span className="badge">Beginner</span></h2>
+          <h2>Recommended Plan <span className="badge">{experience}</span></h2>
           <span className="plan-frequency">{plan?.weeklyFrequency ? `${plan.weeklyFrequency} • 7-day schedule` : 'AI Plan'}</span>
         </div>
 
-        {plan ? (
+        {plan && !isLegacyPlan ? (
           <div className="workout-layout">
             <div>
               <h3>Weekly Workout Plan</h3>
-              <ul className="split-list">
+              <ul className="split-list interactive-split">
                 {plan.workoutPlan?.map((day, index) => (
-                  <li key={index}><strong>{day.day}</strong><span>{day.focus}</span></li>
+                  <li key={day.day}>
+                    <button type="button" className={selectedDay === index ? 'day-select active' : 'day-select'} onClick={() => setSelectedDay(index)}>
+                      <strong>{day.day}</strong><span>{day.focus}</span>
+                    </button>
+                  </li>
                 ))}
               </ul>
             </div>
 
             <div>
-              <h3>Day 1 Workout</h3>
+              <h3>{activeDay?.day || 'Day'} Details</h3>
+              <p className="day-type-label">{labelText(activeDay?.dayType)} · {activeDay?.focus}</p>
               <div className="workout-table-wrap">
                 <table className="clean-table workout-table">
-                  <thead><tr><th>Exercise</th><th>Sets</th><th>Reps / Time</th><th>Rest</th></tr></thead>
+                  <thead><tr><th>Exercise / Activity</th><th>Sets</th><th>Reps / Time</th><th>Rest</th></tr></thead>
                   <tbody>
-                    {(plan.workoutPlan?.[0]?.exercises || []).map((item, index) => (
-                      <tr key={index}><td>{item}</td><td>3</td><td>8-12 reps</td><td>60 sec</td></tr>
+                    {(activeDay?.exercises || []).map((item, index) => (
+                      <tr key={`${item.name}-${index}`}>
+                        <td>{item.name}</td>
+                        <td>{item.sets}</td>
+                        <td>{item.repsOrTime}</td>
+                        <td>{item.restSeconds ? `${item.restSeconds} sec` : '-'}</td>
+                      </tr>
                     ))}
                   </tbody>
                 </table>
@@ -94,14 +106,12 @@ export default function WorkoutRecommendation() {
             </div>
 
             <div className="side-notes">
-              <RecommendationCard title="Why this plan?">Designed for your current profile and goal.</RecommendationCard>
+              <RecommendationCard title="Why this plan?">Built from your current profile, available equipment, experience level, and fitness goal.</RecommendationCard>
               <RecommendationCard title="Safety Note" tone="yellow">{plan.safetyNote}</RecommendationCard>
               <RecommendationCard title="Motivation" tone="purple">{plan.motivation}</RecommendationCard>
             </div>
           </div>
-        ) : (
-          <p className="empty-state">No workout recommendation yet. Click Generate Workout Plan to create one.</p>
-        )}
+        ) : isLegacyPlan ? <p className="empty-state">Your previous workout is still saved, but it needs one refresh before it can be shown with accurate sets, repetitions/time, and rest values.</p> : <p className="empty-state">No workout recommendation yet. Generate a plan after completing your fitness profile.</p>}
       </section>
     </AppLayout>
   );

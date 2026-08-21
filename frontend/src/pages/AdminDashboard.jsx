@@ -186,8 +186,8 @@ export default function AdminDashboard() {
       <section className="stats-grid">
         <StatCard icon={<Dumbbell size={18} />} label="Total Exercises" value={exercises.length} />
         <StatCard icon={<Grid2X2 size={18} />} label="Total Categories" value={categories.length} />
-        <StatCard icon={<Activity size={18} />} label="Recent Updates" value={Math.min(exercises.length, 8)} />
-        <StatCard icon={<CheckCircle size={18} />} label="System Status" value="Ready" />
+        <StatCard icon={<Activity size={18} />} label="Beginner Exercises" value={exercises.filter((item) => item.difficulty === 'beginner').length} />
+        <StatCard icon={<CheckCircle size={18} />} label="Exercises With Video" value={exercises.filter((item) => Boolean(item.videoUrl)).length} />
       </section>
 
       <section className="admin-grid">
