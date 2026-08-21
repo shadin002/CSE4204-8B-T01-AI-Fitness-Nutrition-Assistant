@@ -42,7 +42,7 @@ export default function Register() {
         <Logo />
         <div>
           <h1>Start your fitness journey</h1>
-          <p>Create an account or log in to access your dashboard, profile, progress, and AI-assisted recommendations.</p>
+          <p>Create an account to access your profile, progress, and AI-assisted recommendations.</p>
         </div>
         <div className="auth-benefits">
           <span><ArrowRight size={16} /> Personalized Workouts <small>Plans based on your goal and fitness level.</small></span>
@@ -57,13 +57,13 @@ export default function Register() {
           <Link className="active" to="/register">Register</Link>
         </div>
         <h2>Create your account</h2>
-        <p>Start your fitness journey in under a minute.</p>
+        <p>Use an email address you can access in case you need password recovery.</p>
         <Alert type="error">{error}</Alert>
         <form onSubmit={handleSubmit} className="form-stack">
-          <Input label="Full Name" name="name" value={form.name} onChange={update} placeholder="Enter your full name" required />
+          <Input label="Full Name" name="name" value={form.name} onChange={update} placeholder="Enter your full name" required minLength={2} maxLength={60} />
           <Input label="Email Address" type="email" name="email" value={form.email} onChange={update} placeholder="Enter your email address" required />
-          <Input label="Password" type="password" name="password" value={form.password} onChange={update} placeholder="Create a password" required minLength={6} />
-          <Input label="Confirm Password" type="password" name="confirmPassword" value={form.confirmPassword} onChange={update} placeholder="Confirm your password" required minLength={6} />
+          <Input label="Password" type="password" name="password" value={form.password} onChange={update} placeholder="Create a password" required minLength={8} maxLength={128} />
+          <Input label="Confirm Password" type="password" name="confirmPassword" value={form.confirmPassword} onChange={update} placeholder="Confirm your password" required minLength={8} maxLength={128} />
           <Button loading={loading} type="submit">Create Account</Button>
         </form>
       </section>

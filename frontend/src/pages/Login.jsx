@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ArrowRight, Circle, Star } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Logo from '../components/Logo.jsx';
 import Input from '../components/Input.jsx';
 import Button from '../components/Button.jsx';
@@ -13,7 +13,16 @@ export default function Login() {
   const { login } = useAuth();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [sessionMessage, setSessionMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const message = sessionStorage.getItem('fitguide_auth_message');
+    if (message) {
+      setSessionMessage(message);
+      sessionStorage.removeItem('fitguide_auth_message');
+    }
+  }, []);
 
   const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -54,14 +63,14 @@ export default function Login() {
         </div>
         <h2>Log in to your account</h2>
         <p>Welcome back. Enter your details to continue.</p>
-        <Alert type="success">{location.state?.message}</Alert>
+        <Alert type="success">{location.state?.message || sessionMessage}</Alert>
         <Alert type="error">{error}</Alert>
         <form onSubmit={handleSubmit} className="form-stack">
           <Input label="Email Address" type="email" name="email" value={form.email} onChange={update} placeholder="Enter your email address" required />
           <Input label="Password" type="password" name="password" value={form.password} onChange={update} placeholder="Enter your password" required />
-          <div className="form-row small-row">
-            <label><input type="checkbox" /> Remember me</label>
-            <span>Forgot password?</span>
+          <div className="form-row small-row auth-link-row">
+            <span>Forgot your password?</span>
+            <Link to="/forgot-password">Recover password</Link>
           </div>
           <Button loading={loading} type="submit">Log In</Button>
           <p className="center-note">Don&apos;t have an account? <Link to="/register">Register</Link></p>
