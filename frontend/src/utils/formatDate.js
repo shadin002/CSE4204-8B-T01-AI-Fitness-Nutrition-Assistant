@@ -8,8 +8,9 @@ export function formatDate(value) {
 }
 
 export function toInputDate(value) {
-  if (!value) return new Date().toISOString().split('T')[0];
-  return new Date(value).toISOString().split('T')[0];
+  const date = value ? new Date(value) : new Date();
+  const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
+  return localDate.toISOString().split('T')[0];
 }
 
 export function labelText(value) {
