@@ -9,6 +9,7 @@ export default function ExerciseLibrary() {
   const [exercises, setExercises] = useState([]);
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
+  const [activeDifficulty, setActiveDifficulty] = useState('all');
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -31,13 +32,24 @@ export default function ExerciseLibrary() {
     loadData();
   }, []);
 
-  const filtered = useMemo(() => {
-    return exercises.filter((exercise) => {
-      const nameMatch = exercise.name.toLowerCase().includes(search.toLowerCase());
-      const categoryMatch = activeCategory === 'all' || exercise.categoryId?._id === activeCategory || exercise.categoryId === activeCategory;
-      return nameMatch && categoryMatch;
-    });
-  }, [exercises, search, activeCategory]);
+ const filtered = useMemo(() => {
+  return exercises.filter((exercise) => {
+    const nameMatch = exercise.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    const categoryMatch =
+      activeCategory === 'all' ||
+      exercise.categoryId?._id === activeCategory ||
+      exercise.categoryId === activeCategory;
+
+    const difficultyMatch =
+      activeDifficulty === 'all' ||
+      exercise.difficulty?.toLowerCase() === activeDifficulty;
+
+    return nameMatch && categoryMatch && difficultyMatch;
+  });
+}, [exercises, search, activeCategory, activeDifficulty]);
 
   return (
     <AppLayout>
@@ -59,6 +71,28 @@ export default function ExerciseLibrary() {
             {category.categoryName}
           </button>
         ))}
+      </div>
+
+      <div className="filter-row">
+        <button className={activeDifficulty === 'all' ? 'selected' : ''} onClick={() => setActiveDifficulty('all')}
+  >
+    All Levels
+         </button>
+
+        <button className={activeDifficulty === 'beginner' ? 'selected' : ''} onClick={() => setActiveDifficulty('beginner')}
+  >
+    Beginner
+         </button>
+
+        <button className={activeDifficulty === 'intermediate' ? 'selected' : ''} onClick={() => setActiveDifficulty('intermediate')}
+>
+    Intermediate
+         </button>
+
+        <button className={activeDifficulty === 'advanced' ? 'selected' : ''} onClick={() => setActiveDifficulty('advanced')}
+  >
+    Advanced
+         </button>
       </div>
 
       <section className="exercise-grid">
