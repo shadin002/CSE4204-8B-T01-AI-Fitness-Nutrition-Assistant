@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, BarChart3, Check, Circle, Sparkles, Star, Zap } from 'lucide-react';
+import { ArrowRight, BarChart3, Check, Circle, Star, Zap } from 'lucide-react';
 import Navbar from '../components/Navbar.jsx';
 
 export default function Home() {
