@@ -338,4 +338,4 @@ http://localhost:5000
 | Resource | Link |
 | :--- | :--- |
 | GitHub Repository | https://github.com/shadin002/CSE4204-8B-T01-AI-Fitness-Nutrition-Assistant |
-| Live Demo | Coming Soon |
+| Live Demo | https://fitmate-d1w7.onrender.com |

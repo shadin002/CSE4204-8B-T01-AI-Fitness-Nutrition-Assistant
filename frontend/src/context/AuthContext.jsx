@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import api from '../services/api';
 
 const AuthContext = createContext(null);
@@ -81,21 +81,18 @@ export function AuthProvider({ children }) {
     clearLocalSession();
   };
 
-  const value = useMemo(
-    () => ({
-      token,
-      user,
-      authLoading,
-      connectionError,
-      isAuthenticated: Boolean(token),
-      login,
-      register,
-      logout,
-      updateStoredUser,
-      clearLocalSession,
-    }),
-    [token, user, authLoading, connectionError]
-  );
+const value = {
+  token,
+  user,
+  authLoading,
+  connectionError,
+  isAuthenticated: Boolean(token),
+  login,
+  register,
+  logout,
+  updateStoredUser,
+  clearLocalSession,
+};
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
