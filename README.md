@@ -339,3 +339,11 @@ http://localhost:5000
 | :--- | :--- |
 | GitHub Repository | https://github.com/shadin002/CSE4204-8B-T01-AI-Fitness-Nutrition-Assistant |
 | Live Demo | https://fitmate-d1w7.onrender.com |
+## Project Links
+
+| Resource | Link |
+| :--- | :--- |
+| GitHub Repository | [https://github.com/shadin002/CSE4204-8B-T01-AI-Fitness-Nutrition-Assistant](https://github.com/shadin002/CSE4204-8B-T01-AI-Fitness-Nutrition-Assistant) |
+| Live Demo (Frontend) | [https://fitmate-d1w7.onrender.com](https://fitmate-d1w7.onrender.com) |
+| Backend API | [https://fitmate-backend-8cuh.onrender.com](https://fitmate-backend-8cuh.onrender.com) |
+| Backend Health Check | [https://fitmate-backend-8cuh.onrender.com/api/health](https://fitmate-backend-8cuh.onrender.com/api/health) |
