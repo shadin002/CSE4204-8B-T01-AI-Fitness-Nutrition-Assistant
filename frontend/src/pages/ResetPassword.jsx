@@ -38,7 +38,7 @@ export default function ResetPassword() {
         <Logo />
         <div>
           <h1>Set a new password</h1>
-          <p>Choose a new password for your FitGuide AI account.</p>
+          <p>Choose a new password for your FitMate AI AI account.</p>
         </div>
       </section>
       <section className="auth-card">

@@ -1,6 +1,19 @@
+
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Activity, BarChart3, BookOpen, Circle, LayoutDashboard, LogOut, Menu, Settings, User, X, Zap } from 'lucide-react';
+import {
+  Activity,
+  BarChart3,
+  BookOpen,
+  Circle,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Settings,
+  User,
+  X,
+  Zap,
+} from 'lucide-react';
 import Logo from './Logo.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
@@ -35,7 +48,12 @@ export default function Sidebar({ admin = false }) {
     <aside className={open ? 'sidebar mobile-open' : 'sidebar'}>
       <div className="sidebar-top-row">
         <Logo />
-        <button className="mobile-side-button" type="button" onClick={() => setOpen((value) => !value)} aria-label="Toggle app menu">
+        <button
+          className="mobile-side-button"
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          aria-label="Toggle app menu"
+        >
           {open ? <X size={21} /> : <Menu size={21} />}
         </button>
       </div>
@@ -44,18 +62,32 @@ export default function Sidebar({ admin = false }) {
         <nav className="side-nav">
           {menu.map((item) => {
             const Icon = item.icon;
+
             return (
-              <NavLink key={item.to} to={item.to} onClick={() => setOpen(false)}>
-                <Icon size={16} /><span>{item.label}</span>
+              <NavLink
+                key={item.to}
+                to={item.to}
+                onClick={() => setOpen(false)}
+              >
+                <Icon size={16} />
+                <span>{item.label}</span>
               </NavLink>
             );
           })}
         </nav>
 
-        <button className="logout-btn" onClick={handleLogout}><LogOut size={16} /> Logout</button>
+        <button className="logout-btn" onClick={handleLogout}>
+          <LogOut size={16} />
+          Logout
+        </button>
+
         <div className="tip-card">
-          <strong>{admin ? 'Admin Mode' : 'FitGuide Tip'}</strong>
-          <span>{admin ? 'Manage exercise content and categories.' : 'Keep your profile and progress data accurate for better guidance.'}</span>
+          <strong>{admin ? 'Admin Mode' : 'FitMate Tip'}</strong>
+          <span>
+            {admin
+              ? 'Manage exercise content and categories.'
+              : 'Keep your profile and progress data accurate for better guidance.'}
+          </span>
         </div>
       </div>
     </aside>

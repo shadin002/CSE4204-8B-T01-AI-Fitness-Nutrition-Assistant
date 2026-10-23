@@ -139,7 +139,7 @@ export default function Profile() {
               <label className="field">
                 <span>Age</span>
                 <input type="number" value={form.age} onChange={(e) => update('age', e.target.value)} required min={18} max={120} />
-                <small>FitGuide AI currently supports adult users aged 18 and above.</small>
+                <small>FitMate AI currently supports adult users aged 18 and above.</small>
               </label>
 
               <label className="field">
@@ -216,7 +216,7 @@ export default function Profile() {
               </label>
             </div>
 
-            <p className="note-box profile-safety-note">These fields help the AI avoid unsuitable suggestions, but FitGuide AI provides general guidance and does not replace professional medical advice.</p>
+            <p className="note-box profile-safety-note">These fields help the AI avoid unsuitable suggestions, but FitMate AI provides general guidance and does not replace professional medical advice.</p>
 
             <div className="align-end">
               <Button loading={saving} type="submit">{hasProfile ? 'Update Profile' : 'Save Profile'}</Button>

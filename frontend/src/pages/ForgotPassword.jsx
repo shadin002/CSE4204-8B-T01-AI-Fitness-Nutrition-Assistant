@@ -33,7 +33,7 @@ export default function ForgotPassword() {
         <Logo />
         <div>
           <h1>Recover your account</h1>
-          <p>Enter the email address used for your FitGuide AI account.</p>
+          <p>Enter the email address used for your FitMate AI account.</p>
         </div>
       </section>
       <section className="auth-card">
