@@ -7,7 +7,7 @@ export default function Logo() {
         <Dumbbell size={18} />
       </div>
       <div>
-        <strong>FitGuide AI</strong>
+        <strong>FitMate AI</strong>
         <span>Fitness & Nutrition Assistant</span>
       </div>
     </div>

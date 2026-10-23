@@ -122,7 +122,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
   user.passwordResetExpires = new Date(Date.now() + 20 * 60 * 1000);
   await user.save({ validateBeforeSave: false });
 
-  const clientUrl = (process.env.CLIENT_URL || 'http://localhost:5173').split(',')[0].trim();
+  const clientUrl = (process.env.CLIENT_URL || 'http://localhost:5173').split(',')[0].trim().replace(/\/+$/, '');
   const resetUrl = `${clientUrl}/reset-password/${rawToken}`;
 
   try {
